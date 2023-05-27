@@ -1,7 +1,7 @@
 <body>
   <script type="module">
-    import init, {greet} from "./wasm_test.js";
-    init()
+    import initSync, {greet} from "./wasm_test.js";
+    initSync()
       .then(() => {
         greet("World")
       });
