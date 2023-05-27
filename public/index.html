@@ -1,0 +1,9 @@
+<body>
+  <script type="module">
+    import init, {greet} from "./wasm_test.js";
+    init()
+      .then(() => {
+        greet("World")
+      });
+  </script>
+</body>
