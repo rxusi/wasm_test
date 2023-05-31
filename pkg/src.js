@@ -41,11 +41,11 @@ const createBoard = function() {
     cell_n = document.querySelector("#cell_n").value; 
     let win_n = document.querySelector("#win_n").value; 
 
-    if (cell_n <= 0 || win_n <= 1) { return; }
+    if (cell_n < 1 || win_n < 1) { return; }
 
     let board = document.querySelector("#board");
     
-    ttt = new Tictactoe(cell_n, cell_n, 1);
+    ttt = new Tictactoe(cell_n, win_n, 1);
     winner = 0;
 
     let boardHTML = ttt.getBoardHTML();
@@ -95,7 +95,7 @@ const put = function(stone, y, x) {
     document.querySelector("#" + updated_cell_id).value = ttt.getCellStr(uy, ux);
 }
 
-const displayWinner = function() {
+const displayWinner = async function() {
     if (winner == 0) {
         winner = ttt.getWinner();
         let winner_text = "";
