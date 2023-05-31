@@ -1,4 +1,4 @@
-import initSync, { greet, Tictactoe, Point } from "./wasm_test.js";
+import initSync, { Tictactoe } from "./wasm_test.js";
 
 const PLAYER = 1;
 const COM = 2;
