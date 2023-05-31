@@ -7,10 +7,10 @@ initSync()
 
 let ttt;
 
-function create() {
+export function create() {
     ttt = Tictactoe.new(4, 4);
 }
 
-function show() {
+export function show() {
     ttt.show();
 }
