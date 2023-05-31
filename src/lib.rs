@@ -49,7 +49,7 @@ impl Tictactoe {
         
         for y in 0.._N {
             for x in 0.._N {
-                _id_list[y][x] = String::from("id='") + &y.to_string() + "_" + &x.to_string() + "' ";
+                _id_list[y][x] = y.to_string() + "_" + &x.to_string();
             }
         }
 
@@ -163,11 +163,11 @@ impl Tictactoe {
         let mut cellHTML: String = String::new();
 
         cellHTML += "<input ";
-        cellHTML += &self.id_list[y][x];
-        cellHTML += "type='button' class='cell' value='";
         cellHTML += &String::from("id='");
-        cellHTML += &self.getCellStr(y, x);
+        cellHTML += &self.id_list[y][x];
         cellHTML += "' ";
+        cellHTML += "type='button' class='cell' value='";
+        cellHTML += &self.getCellStr(y, x);
         cellHTML += "' onClick='onCellClick(this.id)'>";
 
         return cellHTML;
