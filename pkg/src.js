@@ -49,24 +49,43 @@ window.createBoard = createBoard;
 export { createBoard };
 
 const onCellClick = function(cell_id) {
-    let yx = cell_id.split('_');
+    let y, x;
 
-    let y = parseInt(yx[0]);
-    let x = parseInt(yx[1]);
+    [y, x] = idParse(cell_id);
 
     console.log(yx, y, x);
 
-    put(y, x);
+    put(cell_id, y, x);
 }
 window.onCellClick = onCellClick;
 export { onCellClick };
 
 const put = function(cell_id, y, x) {
+    let updated_cell_id;
+    let uy, ux;
+    
     // Player turn
-    ttt.put(0, y, x);
-    document.querySelector("#" + String(cell_n)).value = ttt.getCellStr(y, x);
+    updated_cell_id = ttt.put(0, y, x);
+
+    if (updated_cell_id == "") { 
+        alert("");
+        return;
+    }
+
+    [uy, ux] = idParse(updated_cell_id);
+    document.querySelector("#" + cell_n).value = ttt.getCellStr(uy, ux);
 
     // Com turn
-    ttt.put(0, 0, 0);
-    document.querySelector("#" + String(cell_n)).value = ttt.getCellStr(y, x);
+    updated_cell_id = ttt.put(0, 0, 0);
+    [uy, ux] = idParse(updated_cell_id);
+    document.querySelector("#" + cell_n).value = ttt.getCellStr(uy, ux);
+}
+
+const idParse = function(id_string) {
+    let yx = id_string.split('_');
+
+    let y = parseInt(yx[0]);
+    let x = parseInt(yx[1]);
+
+    return [y, x];
 }

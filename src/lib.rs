@@ -101,7 +101,7 @@ impl Tictactoe {
         return (y, x);
     }
 
-    pub fn put(&mut self, _stone: isize, _x: usize, _y: usize) -> bool {
+    pub fn put(&mut self, _stone: isize, _x: usize, _y: usize) -> String {
         let stone: isize;
         let (mut y, mut x): (usize, usize) = (self.N, self.N);
 
@@ -118,7 +118,7 @@ impl Tictactoe {
             else { (x, y) = self.getRandomPos(); }
         }
 
-        if self.board[y][x] != 0 { return false; }
+        if self.board[y][x] != 0 { return String::from(""); }
 
         const DX: [isize; 8] = [ 0, 1, 1, 1, 0,-1,-1,-1];
         const DY: [isize; 8] = [-1,-1, 0, 1, 1, 1, 0,-1];
@@ -145,7 +145,7 @@ impl Tictactoe {
 
         if _stone == 0 { self.turn *= -1; }
 
-        return true;
+        return self.id_list[y][x].clone();
     }
 
     pub fn getCellStr(&self, y: usize, x: usize) -> String {
@@ -165,7 +165,9 @@ impl Tictactoe {
         cellHTML += "<input ";
         cellHTML += &self.id_list[y][x];
         cellHTML += "type='button' class='cell' value='";
+        cellHTML += &String::from("id='");
         cellHTML += &self.getCellStr(y, x);
+        cellHTML += "' ";
         cellHTML += "' onClick='onCellClick(this.id)'>";
 
         return cellHTML;
