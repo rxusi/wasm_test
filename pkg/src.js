@@ -53,7 +53,7 @@ const onCellClick = function(cell_id) {
 
     [y, x] = idParse(cell_id);
 
-    console.log(yx, y, x);
+    console.log(y, x);
 
     put(cell_id, y, x);
 }
