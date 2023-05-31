@@ -108,14 +108,43 @@ impl Tictactoe {
         else { return '□'; }
     }
 
+    fn getStr(v: isize) -> String {
+        if v > 0 { return String::from("●"); }
+        else if v < 0 { return String::from("○"); }
+        else { return String::from(""); }
+    }
+
     pub fn show(&self) {
-        for i in 0..self.N * 2 {
-            for j in 0..self.N * 2 {
-                print!("{} ", Tictactoe::getChar(self.board[i][j]));
+        for y in 0..self.N * 2 {
+            for x in 0..self.N * 2 {
+                print!("{} ", Tictactoe::getChar(self.board[y][x]));
             }
             println!();
         }
         println!();
+    }
+
+    pub fn getBoardHTML(&self) -> String {
+        let mut boardHTML: String = String::new();
+
+        let spanBegin: &str = "<span class='line'>";
+        let cellBegin: &str = "<input type='button' class='cell' value='";
+        let cellEnd: &str = "'>";
+        let spanEnd: &str = "</span>";
+
+        for y in 0..self.N * 2 {
+            boardHTML += spanBegin;
+
+            for x in 0..self.N * 2 {
+                boardHTML += cellBegin;
+                boardHTML += &Tictactoe::getStr(self.board[y][x]);
+                boardHTML += cellEnd;
+            }
+            
+            boardHTML += spanEnd;
+        }
+
+        return boardHTML;
     }
 
     pub fn gameIsOver(&self) -> bool {
@@ -144,6 +173,8 @@ mod tests {
         ttt.show();
 
         ttt.gameIsOver();
+
+        dbg!(ttt.getBoardHTML());
     }
 }
 

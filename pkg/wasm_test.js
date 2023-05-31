@@ -18,6 +18,15 @@ function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 
+let cachedInt32Memory0 = null;
+
+function getInt32Memory0() {
+    if (cachedInt32Memory0 === null || cachedInt32Memory0.byteLength === 0) {
+        cachedInt32Memory0 = new Int32Array(wasm.memory.buffer);
+    }
+    return cachedInt32Memory0;
+}
+
 let WASM_VECTOR_LEN = 0;
 
 const cachedTextEncoder = (typeof TextEncoder !== 'undefined' ? new TextEncoder('utf-8') : { encode: () => { throw Error('TextEncoder not available') } } );
@@ -136,6 +145,14 @@ export class Point {
 */
 export class Tictactoe {
 
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(Tictactoe.prototype);
+        obj.__wbg_ptr = ptr;
+
+        return obj;
+    }
+
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
@@ -146,6 +163,56 @@ export class Tictactoe {
     free() {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_tictactoe_free(ptr);
+    }
+    /**
+    * @param {number} _N
+    * @param {number} _win_N
+    * @returns {Tictactoe}
+    */
+    static new(_N, _win_N) {
+        const ret = wasm.tictactoe_new(_N, _win_N);
+        return Tictactoe.__wrap(ret);
+    }
+    /**
+    * @param {number} stone
+    * @param {number} x
+    * @param {number} y
+    * @returns {boolean}
+    */
+    put(stone, x, y) {
+        const ret = wasm.tictactoe_put(this.__wbg_ptr, stone, x, y);
+        return ret !== 0;
+    }
+    /**
+    */
+    show() {
+        wasm.tictactoe_show(this.__wbg_ptr);
+    }
+    /**
+    * @returns {string}
+    */
+    getBoardHTML() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.tictactoe_getBoardHTML(retptr, this.__wbg_ptr);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            deferred1_0 = r0;
+            deferred1_1 = r1;
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(deferred1_0, deferred1_1);
+        }
+    }
+    /**
+    * @returns {boolean}
+    */
+    gameIsOver() {
+        const ret = wasm.tictactoe_gameIsOver(this.__wbg_ptr);
+        return ret !== 0;
     }
 }
 
@@ -200,6 +267,7 @@ function __wbg_init_memory(imports, maybe_memory) {
 function __wbg_finalize_init(instance, module) {
     wasm = instance.exports;
     __wbg_init.__wbindgen_wasm_module = module;
+    cachedInt32Memory0 = null;
     cachedUint8Memory0 = null;
 
 

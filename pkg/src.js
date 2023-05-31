@@ -32,7 +32,8 @@ export {sum};
 const createBoard = function() {
     let cell_n = document.querySelector("#cell_n").value; 
     let board = document.querySelector("#board");
-    console.log(cell_n);
+    
+    /*console.log(cell_n);
 
     let boardHTML = "";
 
@@ -46,5 +47,12 @@ const createBoard = function() {
         boardHTML += "</span>";
     }
     
+    board.innerHTML = boardHTML;
+    */
+
+    ttt = Tictactoe.new(cell_n, cell_n);
+
+    let boardHTML = ttt.getBoardHTML();
+
     board.innerHTML = boardHTML;
 }

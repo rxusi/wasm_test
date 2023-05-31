@@ -30,6 +30,30 @@ export class Point {
 */
 export class Tictactoe {
   free(): void;
+/**
+* @param {number} _N
+* @param {number} _win_N
+* @returns {Tictactoe}
+*/
+  static new(_N: number, _win_N: number): Tictactoe;
+/**
+* @param {number} stone
+* @param {number} x
+* @param {number} y
+* @returns {boolean}
+*/
+  put(stone: number, x: number, y: number): boolean;
+/**
+*/
+  show(): void;
+/**
+* @returns {string}
+*/
+  getBoardHTML(): string;
+/**
+* @returns {boolean}
+*/
+  gameIsOver(): boolean;
 }
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
@@ -42,7 +66,14 @@ export interface InitOutput {
   readonly point_sum: (a: number) => number;
   readonly point_set: (a: number, b: number, c: number) => void;
   readonly __wbg_tictactoe_free: (a: number) => void;
+  readonly tictactoe_new: (a: number, b: number) => number;
+  readonly tictactoe_put: (a: number, b: number, c: number, d: number) => number;
+  readonly tictactoe_show: (a: number) => void;
+  readonly tictactoe_getBoardHTML: (a: number, b: number) => void;
+  readonly tictactoe_gameIsOver: (a: number) => number;
   readonly greet: (a: number, b: number) => void;
+  readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
+  readonly __wbindgen_free: (a: number, b: number) => void;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
 }
