@@ -84,7 +84,7 @@ const put = function(stone, y, x) {
     let updated_cell_id;
     let uy, ux;
     
-    updated_cell_id = ttt.put(stone, y, x, "manual");
+    updated_cell_id = ttt.put(stone, y, x, "montecarlo");
 
     if (updated_cell_id[0] == '!') { 
         console.log(updated_cell_id);
