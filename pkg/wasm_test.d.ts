@@ -9,6 +9,11 @@ export function greet(name: string): void;
 export class Point {
   free(): void;
 /**
+* @param {number} x
+* @param {number} y
+*/
+  constructor(x: number, y: number);
+/**
 */
   show(): void;
 /**
@@ -32,6 +37,7 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly __wbg_point_free: (a: number) => void;
+  readonly point_new: (a: number, b: number) => number;
   readonly point_show: (a: number) => void;
   readonly point_sum: (a: number) => number;
   readonly point_set: (a: number, b: number, c: number) => void;

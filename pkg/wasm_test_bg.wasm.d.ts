@@ -2,6 +2,7 @@
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
 export function __wbg_point_free(a: number): void;
+export function point_new(a: number, b: number): number;
 export function point_show(a: number): void;
 export function point_sum(a: number): number;
 export function point_set(a: number, b: number, c: number): void;

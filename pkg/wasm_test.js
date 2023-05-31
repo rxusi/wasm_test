@@ -85,6 +85,14 @@ export function greet(name) {
 */
 export class Point {
 
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(Point.prototype);
+        obj.__wbg_ptr = ptr;
+
+        return obj;
+    }
+
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
@@ -95,6 +103,14 @@ export class Point {
     free() {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_point_free(ptr);
+    }
+    /**
+    * @param {number} x
+    * @param {number} y
+    */
+    constructor(x, y) {
+        const ret = wasm.point_new(x, y);
+        return Point.__wrap(ret);
     }
     /**
     */

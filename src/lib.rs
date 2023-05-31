@@ -10,6 +10,11 @@ pub struct Point {
 
 #[wasm_bindgen]
 impl Point {
+    #[wasm_bindgen(constructor)]
+    pub fn new(x: isize, y: isize) -> Self {
+        return Point { x: x, y: y };
+    }
+
     pub fn show(&self) {
         println!("({}, {})", self.x, self.y);
     }
