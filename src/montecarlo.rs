@@ -16,7 +16,10 @@ pub fn montecarlo(_ttt: &mut Tictactoe, stone: isize, tryout_n: isize) -> (usize
                 let mut ttt_try: Tictactoe = base.clone();
                 let put_text: String = ttt_try.put(stone, y, x, "random");
                 
-                if put_text.find('!') != None { break; }
+                if put_text.find('!') != None { 
+                    sim_board[y][x] = std::isize::MIN;
+                    break; 
+                }
                 
                 for turn in 0..ttt_try.remain_N as isize {
                     ttt_try.put(turn % 2 + 1, base.N, base.N, "random");
