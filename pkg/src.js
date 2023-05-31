@@ -49,7 +49,7 @@ window.createBoard = createBoard;
 export { createBoard };
 
 const onCellClick = function(cell_id) {
-    yx = cell_id.split('_');
+    let yx = cell_id.split('_');
 
     y = parseInt(yx[0]);
     x = parseInt(yx[1]);
