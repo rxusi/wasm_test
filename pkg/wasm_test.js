@@ -83,6 +83,22 @@ export function greet(name) {
 
 /**
 */
+export class Point {
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_point_free(ptr);
+    }
+}
+/**
+*/
 export class Tictactoe {
 
     __destroy_into_raw() {

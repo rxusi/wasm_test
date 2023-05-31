@@ -3,6 +3,27 @@
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+pub struct Point {
+    x: isize,
+    y: isize,
+}
+
+impl Point {
+    pub fn show(&self) {
+        println!("({}, {})", self.x, self.y);
+    }
+
+    pub fn sum(&self) -> isize {
+        return self.x + self.y;
+    }
+
+    pub fn set(&mut self, x: isize, y: isize) {
+        self.x = x;
+        self.y = y;
+    }
+}
+
+#[wasm_bindgen]
 pub struct Tictactoe {
     N: usize,
     win_N: usize,
