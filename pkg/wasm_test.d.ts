@@ -1,6 +1,32 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
+* @param {string} name
+*/
+export function greet(name: string): void;
+/**
+*/
+export class Point {
+  free(): void;
+/**
+* @param {number} x
+* @param {number} y
+*/
+  constructor(x: number, y: number);
+/**
+*/
+  show(): void;
+/**
+* @returns {number}
+*/
+  sum(): number;
+/**
+* @param {number} x
+* @param {number} y
+*/
+  set(x: number, y: number): void;
+}
+/**
 */
 export class Tictactoe {
   free(): void;
@@ -50,6 +76,11 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
+  readonly __wbg_point_free: (a: number) => void;
+  readonly point_new: (a: number, b: number) => number;
+  readonly point_show: (a: number) => void;
+  readonly point_sum: (a: number) => number;
+  readonly point_set: (a: number, b: number, c: number) => void;
   readonly __wbg_tictactoe_free: (a: number) => void;
   readonly tictactoe_new: (a: number, b: number, c: number) => number;
   readonly tictactoe_clone: (a: number) => number;
@@ -59,6 +90,7 @@ export interface InitOutput {
   readonly tictactoe_show: (a: number) => void;
   readonly tictactoe_getBoardHTML: (a: number, b: number) => void;
   readonly tictactoe_getWinner: (a: number) => number;
+  readonly greet: (a: number, b: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
