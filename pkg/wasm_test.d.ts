@@ -53,7 +53,7 @@ export class Tictactoe {
 * @param {number} v
 * @returns {string}
 */
-  static staticMethod(v: number): string;
+  static cell2Str(v: number): string;
 /**
 */
   show(): void;
@@ -80,7 +80,7 @@ export interface InitOutput {
   readonly tictactoe_new: (a: number, b: number, c: number) => number;
   readonly tictactoe_put: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly tictactoe_getCellStr: (a: number, b: number, c: number, d: number) => void;
-  readonly tictactoe_staticMethod: (a: number, b: number) => void;
+  readonly tictactoe_cell2Str: (a: number, b: number) => void;
   readonly tictactoe_show: (a: number) => void;
   readonly tictactoe_getBoardHTML: (a: number, b: number) => void;
   readonly tictactoe_getWinner: (a: number) => number;

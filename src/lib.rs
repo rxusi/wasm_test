@@ -155,7 +155,7 @@ impl Tictactoe {
         return cell_str;
     }
 
-    #[wasm_bindgen(js_name = "staticMethod")]
+    #[wasm_bindgen(js_name = "cell2Str")]
     pub fn cell2Str(v: isize) -> String {
         if v == 1 { return String::from("●"); }
         else if v == 2 { return String::from("○"); }

@@ -44,7 +44,7 @@ const createBoard = function() {
 
     let board = document.querySelector("#board");
     
-    ttt = Tictactoe.new(cell_n, cell_n, 1);
+    ttt = new Tictactoe(cell_n, cell_n, 1);
     winner = 0;
 
     let boardHTML = ttt.getBoardHTML();
