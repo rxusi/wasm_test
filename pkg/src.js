@@ -73,19 +73,19 @@ const put = function(cell_id, y, x) {
     }
 
     [uy, ux] = idParse(updated_cell_id);
-    document.querySelector("#" + cell_id).value = ttt.getCellStr(uy, ux);
+    document.querySelector("#" + updated_cell_id).value = ttt.getCellStr(uy, ux);
 
     // Com turn
     updated_cell_id = ttt.put(0, 0, 0);
     [uy, ux] = idParse(updated_cell_id);
-    document.querySelector("#" + cell_id).value = ttt.getCellStr(uy, ux);
+    document.querySelector("#" + updated_cell_id).value = ttt.getCellStr(uy, ux);
 }
 
 const idParse = function(id_string) {
     let yx = id_string.split('_');
 
-    let y = parseInt(yx[0]);
-    let x = parseInt(yx[1]);
+    let y = parseInt(yx[1]);
+    let x = parseInt(yx[2]);
 
     return [y, x];
 }

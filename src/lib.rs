@@ -49,7 +49,7 @@ impl Tictactoe {
         
         for y in 0.._N {
             for x in 0.._N {
-                _id_list[y][x] = y.to_string() + "_" + &x.to_string();
+                _id_list[y][x] = String::from("_") + &y.to_string() + "_" + &x.to_string();
             }
         }
 
