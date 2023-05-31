@@ -81,6 +81,23 @@ export function greet(name) {
     wasm.greet(ptr0, len0);
 }
 
+/**
+*/
+export class Tictactoe {
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_tictactoe_free(ptr);
+    }
+}
+
 async function __wbg_load(module, imports) {
     if (typeof Response === 'function' && module instanceof Response) {
         if (typeof WebAssembly.instantiateStreaming === 'function') {
@@ -117,6 +134,9 @@ function __wbg_get_imports() {
     imports.wbg = {};
     imports.wbg.__wbg_alert_85e99f4a3bc0f354 = function(arg0, arg1) {
         alert(getStringFromWasm0(arg0, arg1));
+    };
+    imports.wbg.__wbindgen_throw = function(arg0, arg1) {
+        throw new Error(getStringFromWasm0(arg0, arg1));
     };
 
     return imports;
