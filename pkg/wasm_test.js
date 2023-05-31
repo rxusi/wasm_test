@@ -167,21 +167,43 @@ export class Tictactoe {
     /**
     * @param {number} _N
     * @param {number} _win_N
+    * @param {number} first
     * @returns {Tictactoe}
     */
-    static new(_N, _win_N) {
-        const ret = wasm.tictactoe_new(_N, _win_N);
+    static new(_N, _win_N, first) {
+        const ret = wasm.tictactoe_new(_N, _win_N, first);
         return Tictactoe.__wrap(ret);
     }
     /**
-    * @param {number} stone
-    * @param {number} x
-    * @param {number} y
+    * @param {number} _stone
+    * @param {number} _x
+    * @param {number} _y
     * @returns {boolean}
     */
-    put(stone, x, y) {
-        const ret = wasm.tictactoe_put(this.__wbg_ptr, stone, x, y);
+    put(_stone, _x, _y) {
+        const ret = wasm.tictactoe_put(this.__wbg_ptr, _stone, _x, _y);
         return ret !== 0;
+    }
+    /**
+    * @param {number} y
+    * @param {number} x
+    * @returns {string}
+    */
+    getCellStr(y, x) {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.tictactoe_getCellStr(retptr, this.__wbg_ptr, y, x);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            deferred1_0 = r0;
+            deferred1_1 = r1;
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(deferred1_0, deferred1_1);
+        }
     }
     /**
     */

@@ -33,16 +33,23 @@ export class Tictactoe {
 /**
 * @param {number} _N
 * @param {number} _win_N
+* @param {number} first
 * @returns {Tictactoe}
 */
-  static new(_N: number, _win_N: number): Tictactoe;
+  static new(_N: number, _win_N: number, first: number): Tictactoe;
 /**
-* @param {number} stone
-* @param {number} x
-* @param {number} y
+* @param {number} _stone
+* @param {number} _x
+* @param {number} _y
 * @returns {boolean}
 */
-  put(stone: number, x: number, y: number): boolean;
+  put(_stone: number, _x: number, _y: number): boolean;
+/**
+* @param {number} y
+* @param {number} x
+* @returns {string}
+*/
+  getCellStr(y: number, x: number): string;
 /**
 */
   show(): void;
@@ -66,8 +73,9 @@ export interface InitOutput {
   readonly point_sum: (a: number) => number;
   readonly point_set: (a: number, b: number, c: number) => void;
   readonly __wbg_tictactoe_free: (a: number) => void;
-  readonly tictactoe_new: (a: number, b: number) => number;
+  readonly tictactoe_new: (a: number, b: number, c: number) => number;
   readonly tictactoe_put: (a: number, b: number, c: number, d: number) => number;
+  readonly tictactoe_getCellStr: (a: number, b: number, c: number, d: number) => void;
   readonly tictactoe_show: (a: number) => void;
   readonly tictactoe_getBoardHTML: (a: number, b: number) => void;
   readonly tictactoe_gameIsOver: (a: number) => number;

@@ -39,7 +39,7 @@ const createBoard = function() {
 
     let board = document.querySelector("#board");
     
-    ttt = Tictactoe.new(cell_n, cell_n);
+    ttt = Tictactoe.new(cell_n, cell_n, 1);
 
     let boardHTML = ttt.getBoardHTML();
 
@@ -55,6 +55,18 @@ const onCellClick = function(cell_id) {
     let x = parseInt(yx[1]);
 
     console.log(yx, y, x);
+
+    put(y, x);
 }
 window.onCellClick = onCellClick;
 export { onCellClick };
+
+const put = function(cell_id, y, x) {
+    // Player turn
+    ttt.put(0, y, x);
+    document.querySelector("#" + cell_n).value = ttt.getCellStr(y, x);
+
+    // Com turn
+    ttt.put(0, 0, 0);
+    document.querySelector("#" + cell_n).value = ttt.getCellStr(y, x);
+}
