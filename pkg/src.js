@@ -11,7 +11,7 @@ const createBoard = function() {
     cell_n = document.querySelector("#cell_n").value; 
     let win_n = document.querySelector("#win_n").value; 
 
-    if (cell_n <= 0) { return; }
+    if (cell_n <= 0 || win_n <= 1) { return; }
 
     let board = document.querySelector("#board");
     
