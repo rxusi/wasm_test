@@ -168,24 +168,23 @@ export class Tictactoe {
     * @param {number} _N
     * @param {number} _win_N
     * @param {number} first
-    * @returns {Tictactoe}
     */
-    static new(_N, _win_N, first) {
+    constructor(_N, _win_N, first) {
         const ret = wasm.tictactoe_new(_N, _win_N, first);
         return Tictactoe.__wrap(ret);
     }
     /**
-    * @param {number} _stone
+    * @param {number} stone
     * @param {number} _y
     * @param {number} _x
     * @returns {string}
     */
-    put(_stone, _y, _x) {
+    put(stone, _y, _x) {
         let deferred1_0;
         let deferred1_1;
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.tictactoe_put(retptr, this.__wbg_ptr, _stone, _y, _x);
+            wasm.tictactoe_put(retptr, this.__wbg_ptr, stone, _y, _x);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r1 = getInt32Memory0()[retptr / 4 + 1];
             deferred1_0 = r0;
@@ -207,6 +206,26 @@ export class Tictactoe {
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
             wasm.tictactoe_getCellStr(retptr, this.__wbg_ptr, y, x);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            deferred1_0 = r0;
+            deferred1_1 = r1;
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(deferred1_0, deferred1_1);
+        }
+    }
+    /**
+    * @param {number} v
+    * @returns {string}
+    */
+    static staticMethod(v) {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.tictactoe_staticMethod(retptr, v);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r1 = getInt32Memory0()[retptr / 4 + 1];
             deferred1_0 = r0;
@@ -242,11 +261,11 @@ export class Tictactoe {
         }
     }
     /**
-    * @returns {boolean}
+    * @returns {number}
     */
-    gameIsOver() {
-        const ret = wasm.tictactoe_gameIsOver(this.__wbg_ptr);
-        return ret !== 0;
+    getWinner() {
+        const ret = wasm.tictactoe_getWinner(this.__wbg_ptr);
+        return ret;
     }
 }
 

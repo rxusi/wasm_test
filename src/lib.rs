@@ -34,6 +34,7 @@ impl Point {
 pub struct Tictactoe {
     N: usize,
     win_N: usize,
+    remain_N: usize,
     turn: isize,
     winner: isize,
     board: Vec<Vec<isize>>,
@@ -43,7 +44,9 @@ pub struct Tictactoe {
 
 #[wasm_bindgen]
 impl Tictactoe {
+    #[wasm_bindgen(constructor)]
     pub fn new(_N: usize, _win_N: usize, first: isize) -> Self {
+        let mut _remain_N: usize = _N * _N;
         let mut _board: Vec<Vec<isize>> = vec![vec![0; _N]; _N];
         let mut _id_list: Vec<Vec<String>> = vec![vec![String::new(); _N]; _N];
         
@@ -63,6 +66,7 @@ impl Tictactoe {
         let ttt: Self = Self { 
             N: _N, 
             win_N: _win_N,
+            remain_N: _remain_N,
             turn: first,
             winner: 0,
             board: _board,
@@ -83,7 +87,7 @@ impl Tictactoe {
             ret = None;
         }
         else {
-            ret = Some(((x as isize + dx * mul) as usize, (y as isize + dy * mul) as usize));
+            ret = Some(((y as isize + dy * mul) as usize, (x as isize + dx * mul) as usize));
         }
 
         return ret;
@@ -101,35 +105,39 @@ impl Tictactoe {
         return (y, x);
     }
 
-    pub fn put(&mut self, _stone: isize, _y: usize, _x: usize) -> String {
-        let stone: isize;
-        let (mut y, mut x): (usize, usize) = (self.N, self.N);
+    pub fn put(&mut self, stone: isize, _y: usize, _x: usize) -> String {
+        if self.winner != 0 && self.remain_N == 0 { return String::from("!!! The game is over !!!"); }
 
-        if _stone == 0 {
-            stone = self.turn;
-            if stone == -1 { (x, y) = self.getRandomPos(); }
-        }
-        else {
-            stone = _stone;
-        }
+        let (y, x): (usize, usize);
 
-        if x == self.N && y == self.N {
-            if _x < self.N && _y < self.N { (x, y) = (_x, _y); }
-            else { (x, y) = self.getRandomPos(); }
-        }
+        if stone != self.turn { return String::from("!!! It's not your turn !!!"); }
 
-        if self.board[y][x] != 0 { return String::from(""); }
+        if _x < self.N && _y < self.N { (y, x) = (_y, _x); }
+        else { (y, x) = self.getRandomPos(); }
 
-        const DX: [isize; 8] = [ 0, 1, 1, 1, 0,-1,-1,-1];
-        const DY: [isize; 8] = [-1,-1, 0, 1, 1, 1, 0,-1];
+        if self.board[y][x] != 0 { return String::from("!!! There already is a stone !!!"); }
 
         self.board[y][x] = stone;
 
+        self.judge(y, x);
+
+        self.turn = self.turn % 2 + 1;
+
+        self.remain_N -= 1;
+
+        return self.id_list[y][x].clone();
+    }
+
+    fn judge(&mut self, y: usize, x: usize) {
+        const DX: [isize; 8] = [ 0, 1, 1, 1, 0,-1,-1,-1];
+        const DY: [isize; 8] = [-1,-1, 0, 1, 1, 1, 0,-1];
+
         let mut stone_n_dir: [usize; 4] = [1, 1, 1, 1];
+        let stone: isize = self.board[y][x];
 
         for dir in 0..8usize {
             for i in 1..self.N {
-                if let Some((nx, ny)) = self.getNextPos(x, y, DX[dir], DY[dir], i) {
+                if let Some((ny, nx)) = self.getNextPos(y, x, DY[dir], DX[dir], i) {
                     if self.board[ny][nx] == stone { stone_n_dir[dir % 4] += 1; }
                     else { break; }
                 }
@@ -137,15 +145,9 @@ impl Tictactoe {
             }
         }
 
-        dbg!(&stone_n_dir);
-
         for stone_n in stone_n_dir {
             if stone_n >= self.win_N { self.winner = stone; }
         }
-
-        if _stone == 0 { self.turn *= -1; }
-
-        return self.id_list[y][x].clone();
     }
 
     pub fn getCellStr(&self, y: usize, x: usize) -> String {
@@ -153,9 +155,10 @@ impl Tictactoe {
         return cell_str;
     }
 
-    fn cell2Str(v: isize) -> String {
-        if v > 0 { return String::from("●"); }
-        else if v < 0 { return String::from("○"); }
+    #[wasm_bindgen(js_name = "staticMethod")]
+    pub fn cell2Str(v: isize) -> String {
+        if v == 1 { return String::from("●"); }
+        else if v == 2 { return String::from("○"); }
         else { return String::from(" "); }
     }
 
@@ -202,14 +205,9 @@ impl Tictactoe {
         return boardHTML;
     }
 
-    pub fn gameIsOver(&self) -> bool {
-        if self.winner != 0 {
-            println!("{} wins!", Self::cell2Str(self.winner));
-            return true;
-        }
-        else {
-            return false;
-        }
+    pub fn getWinner(&self) -> isize {
+        if self.winner != 0 { println!("{} wins!", Self::cell2Str(self.winner)); }
+        return self.winner;
     }
 }
 
@@ -223,14 +221,26 @@ mod tests {
         let mut ttt: Tictactoe = Tictactoe::new(4, 4, 1);
         ttt.show();
 
-        ttt.put(0, 2, 2);
+        ttt.put(1, 0, 0);
         ttt.show();
-        ttt.put(0, 5, 5);
+        ttt.put(2, 5, 5);
         ttt.show();
-        ttt.put(0, 1, 1);
+        ttt.put(1, 0, 2);
+        ttt.show();
+        ttt.put(2, 5, 5);
+        ttt.show();
+        ttt.put(1, 0, 3);
+        ttt.show();
+        ttt.put(2, 5, 5);
+        ttt.show();
+        ttt.put(1, 0, 1);
+        ttt.show();
+        ttt.put(2, 5, 5);
+        ttt.show();
+        ttt.put(1, 5, 5);
         ttt.show();
 
-        ttt.gameIsOver();
+        println!("{}", ttt.getWinner());
 
         dbg!(ttt.getBoardHTML());
     }

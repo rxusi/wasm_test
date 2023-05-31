@@ -30,20 +30,29 @@ export {sum};
 
 //-----
 
+const PLAYER = 1;
+const COM = 2;
+
+let cell_n;
 let ttt;
+let winner;
 
 const createBoard = function() {
-    let cell_n = document.querySelector("#cell_n").value; 
+    cell_n = document.querySelector("#cell_n").value; 
 
     if (cell_n <= 0) { return; }
 
     let board = document.querySelector("#board");
     
     ttt = Tictactoe.new(cell_n, cell_n, 1);
+    winner = 0;
 
     let boardHTML = ttt.getBoardHTML();
 
     board.innerHTML = boardHTML;
+
+    // Com tries to put
+    put(COM, cell_n, cell_n);
 }
 window.createBoard = createBoard;
 export { createBoard };
@@ -55,30 +64,46 @@ const onCellClick = function(cell_id) {
 
     console.log(y, x);
 
-    put(cell_id, y, x);
+    // Player turn
+    put(PLAYER, y, x);
+    winner = ttt.gameIsOver();
+    
+    // Com turn
+    put(COM, cell_n, cell_n);
+    winner = ttt.gameIsOver();
+
+    displayWinner();
 }
 window.onCellClick = onCellClick;
 export { onCellClick };
 
-const put = function(cell_id, y, x) {
+const put = function(stone, y, x) {
+    if (winner != 0) { return; }
+
     let updated_cell_id;
     let uy, ux;
     
-    // Player turn
-    updated_cell_id = ttt.put(0, y, x);
+    updated_cell_id = ttt.put(stone, y, x);
 
-    if (updated_cell_id == "") { 
-        alert("");
+    if (updated_cell_id[0] == '!') { 
+        console.log(updated_cell_id);
         return;
     }
 
     [uy, ux] = idParse(updated_cell_id);
     document.querySelector("#" + updated_cell_id).value = ttt.getCellStr(uy, ux);
+}
 
-    // Com turn
-    updated_cell_id = ttt.put(0, 0, 0);
-    [uy, ux] = idParse(updated_cell_id);
-    document.querySelector("#" + updated_cell_id).value = ttt.getCellStr(uy, ux);
+const displayWinner = function() {
+    let winner = ttt.getWinner();
+    let winner_text = "";
+
+    if (winner == PLAYER) { winner_text = "Player"; }
+    else if (winner == COM ) { winner_text = "Com"; }
+
+    winner_text += Tictactoe.cell2Str(winner) + " wins!";
+
+    alert(winner_text);
 }
 
 const idParse = function(id_string) {

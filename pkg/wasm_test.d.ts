@@ -34,22 +34,26 @@ export class Tictactoe {
 * @param {number} _N
 * @param {number} _win_N
 * @param {number} first
-* @returns {Tictactoe}
 */
-  static new(_N: number, _win_N: number, first: number): Tictactoe;
+  constructor(_N: number, _win_N: number, first: number);
 /**
-* @param {number} _stone
+* @param {number} stone
 * @param {number} _y
 * @param {number} _x
 * @returns {string}
 */
-  put(_stone: number, _y: number, _x: number): string;
+  put(stone: number, _y: number, _x: number): string;
 /**
 * @param {number} y
 * @param {number} x
 * @returns {string}
 */
   getCellStr(y: number, x: number): string;
+/**
+* @param {number} v
+* @returns {string}
+*/
+  static staticMethod(v: number): string;
 /**
 */
   show(): void;
@@ -58,9 +62,9 @@ export class Tictactoe {
 */
   getBoardHTML(): string;
 /**
-* @returns {boolean}
+* @returns {number}
 */
-  gameIsOver(): boolean;
+  getWinner(): number;
 }
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
@@ -76,9 +80,10 @@ export interface InitOutput {
   readonly tictactoe_new: (a: number, b: number, c: number) => number;
   readonly tictactoe_put: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly tictactoe_getCellStr: (a: number, b: number, c: number, d: number) => void;
+  readonly tictactoe_staticMethod: (a: number, b: number) => void;
   readonly tictactoe_show: (a: number) => void;
   readonly tictactoe_getBoardHTML: (a: number, b: number) => void;
-  readonly tictactoe_gameIsOver: (a: number) => number;
+  readonly tictactoe_getWinner: (a: number) => number;
   readonly greet: (a: number, b: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_free: (a: number, b: number) => void;
