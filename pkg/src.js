@@ -66,12 +66,10 @@ const onCellClick = function(cell_id) {
 
     // Player turn
     put(PLAYER, y, x);
-    winner = ttt.gameIsOver();
+    displayWinner();
     
     // Com turn
     put(COM, cell_n, cell_n);
-    winner = ttt.gameIsOver();
-
     displayWinner();
 }
 window.onCellClick = onCellClick;
@@ -104,6 +102,8 @@ const displayWinner = function() {
     winner_text += Tictactoe.cell2Str(winner) + " wins!";
 
     alert(winner_text);
+
+    document.querySelector("#winner").innerHTML = winner_text;
 }
 
 const idParse = function(id_string) {
