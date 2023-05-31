@@ -1,34 +1,4 @@
-import initSync, { greet, Tictactoe, Point } from "./wasm_test.js";
-    
-initSync()
-.then(() => {
-    greet("World")
-});
-
-let point;
-
-const create = function() {
-    point = new Point(2, 3);
-    //ttt = Tictactoe.new(4, 4);
-}
-window.create = create;
-export {create};
-
-const show = function() {
-    point.show();
-    //ttt.show();
-}
-window.show = show;
-export {show};
-
-const sum = function() {
-    let _sum = point.sum();
-    console.log(_sum);
-}
-window.sum = sum;
-export {sum};
-
-//-----
+import initSync, { Tictactoe } from "./wasm_test.js";
 
 const PLAYER = 1;
 const COM = 2;
@@ -39,12 +9,13 @@ let winner;
 
 const createBoard = function() {
     cell_n = document.querySelector("#cell_n").value; 
+    let win_n = document.querySelector("#win_n").value; 
 
     if (cell_n <= 0) { return; }
 
     let board = document.querySelector("#board");
     
-    ttt = new Tictactoe(cell_n, cell_n, 1);
+    ttt = new Tictactoe(cell_n, win_n, 1);
     winner = 0;
 
     let boardHTML = ttt.getBoardHTML();
