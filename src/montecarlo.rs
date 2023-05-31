@@ -2,7 +2,7 @@
 
 use super::Tictactoe;
 
-pub fn montecarlo(_ttt: &mut Tictactoe, stone: isize, tryout_n: usize) -> (usize, usize) {
+pub fn montecarlo(_ttt: &mut Tictactoe, stone: isize, tryout_n: isize) -> (usize, usize) {
     let mut base: Tictactoe = _ttt.clone();
     println!("{:?}", &base.board);
 
@@ -12,14 +12,18 @@ pub fn montecarlo(_ttt: &mut Tictactoe, stone: isize, tryout_n: usize) -> (usize
 
     for y in 0..base.N {
         for x in 0..base.N {
-            for _ in 0..tryout_n {
+            for n in 0..tryout_n {
                 let mut ttt_try: Tictactoe = base.clone();
-                ttt_try.put(stone, y, x, "random");
+                let put_text: String = ttt_try.put(stone, y, x, "random");
+                
+                if put_text.find('!') != None { break; }
                 
                 for turn in 0..ttt_try.remain_N as isize {
                     ttt_try.put(turn % 2 + 1, base.N, base.N, "random");
                     if ttt_try.getWinner() != 0 { break; }
                 }
+
+                if sim_board[y][x] + tryout_n - n <= sim_board[ny][nx] { break; }
 
                 if ttt_try.getWinner() == stone { sim_board[y][x] += 1; }
                 if ttt_try.getWinner() == stone % 2 + 1 { sim_board[y][x] -= 1; }

@@ -131,7 +131,7 @@ impl Tictactoe {
         if _x < self.N && _y < self.N { (y, x) = (_y, _x); }
         else { 
             if strategy == "random" { (y, x) = self.getRandomPos(); }
-            else if strategy == "montecarlo" { (y, x) = montecarlo(self, stone, 1000); }
+            else if strategy == "montecarlo" { (y, x) = montecarlo(self, stone, 100); }
             else { (y, x) = self.getRandomPos(); }
         }
 
