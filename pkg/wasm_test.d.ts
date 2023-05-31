@@ -39,11 +39,11 @@ export class Tictactoe {
   static new(_N: number, _win_N: number, first: number): Tictactoe;
 /**
 * @param {number} _stone
-* @param {number} _x
 * @param {number} _y
+* @param {number} _x
 * @returns {string}
 */
-  put(_stone: number, _x: number, _y: number): string;
+  put(_stone: number, _y: number, _x: number): string;
 /**
 * @param {number} y
 * @param {number} x

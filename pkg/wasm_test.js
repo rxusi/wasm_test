@@ -176,16 +176,16 @@ export class Tictactoe {
     }
     /**
     * @param {number} _stone
-    * @param {number} _x
     * @param {number} _y
+    * @param {number} _x
     * @returns {string}
     */
-    put(_stone, _x, _y) {
+    put(_stone, _y, _x) {
         let deferred1_0;
         let deferred1_1;
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.tictactoe_put(retptr, this.__wbg_ptr, _stone, _x, _y);
+            wasm.tictactoe_put(retptr, this.__wbg_ptr, _stone, _y, _x);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r1 = getInt32Memory0()[retptr / 4 + 1];
             deferred1_0 = r0;
