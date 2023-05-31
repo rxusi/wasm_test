@@ -56,3 +56,5 @@ const createBoard = function() {
 
     board.innerHTML = boardHTML;
 }
+window.createBoard = createBoard;
+export {createBoard};
