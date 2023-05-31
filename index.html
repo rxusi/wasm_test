@@ -1,8 +1,31 @@
-<body>
-  hello!
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="public/style.css">
+  </head>
+  <body>
+    hello!
 
-  <script type="module" src="./pkg/src.js" defer></script>
+    <input type="button" value="create" onclick="create()">
+    <input type="button" value="sum" onclick="sum()">
 
-  <input type="button" value="create" onclick="create()">
-  <input type="button" value="show" onclick="show()">
-</body>
+    <br>
+
+    <input type="number" id="cell_n">
+    <input type="button" id="create" value="create" onclick="createBoard()">
+
+    <br>
+    <section id="board" class="board">
+      <span class="line">
+        <input type="button" class="cell"><input type="button" class="cell"><input type="button" class="cell"><input type="button" class="cell">
+      </span>
+      <span class="line">
+        <input type="button" class="cell"><input type="button" class="cell"><input type="button" class="cell"><input type="button" class="cell">
+      </span>
+    </section>
+
+    <script type="module" src="./pkg/src.js" defer></script>
+    <script src="./public/test.js" defer></script>
+  </body>
+</html>

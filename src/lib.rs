@@ -37,10 +37,8 @@ pub struct Tictactoe {
     board: Vec<Vec<isize>>,
 }
 
+#[wasm_bindgen]
 impl Tictactoe {
-    const DX: [isize; 8] = [ 0, 1, 1, 1, 0,-1,-1,-1];
-    const DY: [isize; 8] = [-1,-1, 0, 1, 1, 1, 0,-1];
-
     pub fn new(_N: usize, _win_N: usize) -> Self {
         let mut _board: Vec<Vec<isize>> = vec![vec![0; _N * 2]; _N * 2];
         
@@ -77,6 +75,9 @@ impl Tictactoe {
 
     pub fn put(&mut self, stone: isize, x: usize, y: usize) -> bool {
         if self.board[y][x] != 0 { return false; }
+        
+        const DX: [isize; 8] = [ 0, 1, 1, 1, 0,-1,-1,-1];
+        const DY: [isize; 8] = [-1,-1, 0, 1, 1, 1, 0,-1];
 
         self.board[y][x] = stone;
 
@@ -84,7 +85,7 @@ impl Tictactoe {
 
         for dir in 0..8usize {
             for i in 1..self.N * 2 {
-                if let Some((nx, ny)) = self.getNextPos(x, y, Self::DX[dir], Self::DY[dir], i) {
+                if let Some((nx, ny)) = self.getNextPos(x, y, DX[dir], DY[dir], i) {
                     if self.board[ny][nx] == stone { stone_n_dir[dir % 4] += 1; }
                     else { break; }
                 }
