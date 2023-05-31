@@ -1,4 +1,3 @@
-/*
 const createBoard = function() {
     let cell_n = document.querySelector("#cell_n").value; 
     let board = document.querySelector("#board");
@@ -38,5 +37,6 @@ const onCellClick = function(cell_id) {
     x = parseInt(yx[1]);
 
     console.log(yx, y, x);
+
+    document.querySelector("#" + cell_id).value = "●";
 }
-*/
