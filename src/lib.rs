@@ -106,7 +106,7 @@ impl Tictactoe {
     }
 
     pub fn put(&mut self, stone: isize, _y: usize, _x: usize) -> String {
-        if self.winner != 0 && self.remain_N == 0 { return String::from("!!! The game is over !!!"); }
+        if self.winner != 0 || self.remain_N == 0 { return String::from("!!! The game is over !!!"); }
 
         let (y, x): (usize, usize);
 

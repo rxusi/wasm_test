@@ -93,12 +93,12 @@ const put = function(stone, y, x) {
 }
 
 const displayWinner = function() {
-    let winner = ttt.getWinner();
-    let winner_text = "";
+    if (winner == 0) {
+        winner = ttt.getWinner();
+        let winner_text = "";
 
-    if (winner != 0) {
-        if (winner == PLAYER) { winner_text = "Player"; }
-        else if (winner == COM ) { winner_text = "Com"; }
+        if (winner == PLAYER) { winner_text = "Player "; }
+        else if (winner == COM ) { winner_text = "Com "; }
 
         winner_text += Tictactoe.cell2Str(winner) + " wins!";
 
