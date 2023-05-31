@@ -73,7 +73,7 @@ impl Tictactoe {
         return ttt;
     }
 
-    fn getNextPos(&self, x: usize, y: usize, dx: isize, dy: isize, i: usize) -> Option<(usize, usize)> {
+    fn getNextPos(&self, y: usize, x: usize, dx: isize, dy: isize, i: usize) -> Option<(usize, usize)> {
         let ret: Option<(usize, usize)>;
 
         let mul: isize = i as isize;
@@ -101,7 +101,7 @@ impl Tictactoe {
         return (y, x);
     }
 
-    pub fn put(&mut self, _stone: isize, _x: usize, _y: usize) -> String {
+    pub fn put(&mut self, _stone: isize, _y: usize, _x: usize) -> String {
         let stone: isize;
         let (mut y, mut x): (usize, usize) = (self.N, self.N);
 
