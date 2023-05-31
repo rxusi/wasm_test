@@ -82,66 +82,6 @@ function getInt32Memory0() {
     return cachedInt32Memory0;
 }
 /**
-* @param {string} name
-*/
-export function greet(name) {
-    const ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    wasm.greet(ptr0, len0);
-}
-
-/**
-*/
-export class Point {
-
-    static __wrap(ptr) {
-        ptr = ptr >>> 0;
-        const obj = Object.create(Point.prototype);
-        obj.__wbg_ptr = ptr;
-
-        return obj;
-    }
-
-    __destroy_into_raw() {
-        const ptr = this.__wbg_ptr;
-        this.__wbg_ptr = 0;
-
-        return ptr;
-    }
-
-    free() {
-        const ptr = this.__destroy_into_raw();
-        wasm.__wbg_point_free(ptr);
-    }
-    /**
-    * @param {number} x
-    * @param {number} y
-    */
-    constructor(x, y) {
-        const ret = wasm.point_new(x, y);
-        return Point.__wrap(ret);
-    }
-    /**
-    */
-    show() {
-        wasm.point_show(this.__wbg_ptr);
-    }
-    /**
-    * @returns {number}
-    */
-    sum() {
-        const ret = wasm.point_sum(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-    * @param {number} x
-    * @param {number} y
-    */
-    set(x, y) {
-        wasm.point_set(this.__wbg_ptr, x, y);
-    }
-}
-/**
 */
 export class Tictactoe {
 
@@ -313,9 +253,6 @@ async function __wbg_load(module, imports) {
 function __wbg_get_imports() {
     const imports = {};
     imports.wbg = {};
-    imports.wbg.__wbg_alert_85e99f4a3bc0f354 = function(arg0, arg1) {
-        alert(getStringFromWasm0(arg0, arg1));
-    };
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
