@@ -64,9 +64,9 @@ export { onCellClick };
 const put = function(cell_id, y, x) {
     // Player turn
     ttt.put(0, y, x);
-    document.querySelector("#" + cell_n).value = ttt.getCellStr(y, x);
+    document.querySelector("#" + String(cell_n)).value = ttt.getCellStr(y, x);
 
     // Com turn
     ttt.put(0, 0, 0);
-    document.querySelector("#" + cell_n).value = ttt.getCellStr(y, x);
+    document.querySelector("#" + String(cell_n)).value = ttt.getCellStr(y, x);
 }
