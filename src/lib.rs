@@ -4,32 +4,6 @@ use wasm_bindgen::prelude::*;
 mod random_generator; use random_generator::Rng;
 mod montecarlo; use montecarlo::montecarlo;
 
-#[wasm_bindgen]
-pub struct Point {
-    x: isize,
-    y: isize,
-}
-
-#[wasm_bindgen]
-impl Point {
-    #[wasm_bindgen(constructor)]
-    pub fn new(x: isize, y: isize) -> Self {
-        return Point { x: x, y: y };
-    }
-
-    pub fn show(&self) {
-        println!("({}, {})", self.x, self.y);
-    }
-
-    pub fn sum(&self) -> isize {
-        return self.x + self.y;
-    }
-
-    pub fn set(&mut self, x: isize, y: isize) {
-        self.x = x;
-        self.y = y;
-    }
-}
 
 #[wasm_bindgen]
 pub struct Tictactoe {
@@ -285,14 +259,4 @@ mod tests {
             println!("{}", rng.rand_usize(0, 100));
         }
     }
-}
-
-#[wasm_bindgen]
-extern {
-    pub fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn greet(name: &str) {
-    alert(name);
 }
