@@ -35,13 +35,21 @@ pub struct Tictactoe {
     win_N: usize,
     winner: isize,
     board: Vec<Vec<isize>>,
+    id_list: Vec<Vec<String>>,
 }
 
 #[wasm_bindgen]
 impl Tictactoe {
     pub fn new(_N: usize, _win_N: usize) -> Self {
         let mut _board: Vec<Vec<isize>> = vec![vec![0; _N * 2]; _N * 2];
+        let mut _id_list: Vec<Vec<String>> = vec![vec![String::new(); _N * 2]; _N * 2];
         
+        for y in 0.._N * 2 {
+            for x in 0.._N * 2 {
+                _id_list[y][x] = String::from("id='") + &y.to_string() + "_" + &x.to_string() + "' ";
+            }
+        }
+
         _board[_N - 1][_N - 1] =  1;
         _board[_N - 0][_N - 0] =  1;
         _board[_N - 0][_N - 1] = -1;
@@ -52,6 +60,7 @@ impl Tictactoe {
             win_N: _win_N,
             winner: 0,
             board: _board,
+            id_list: _id_list,
         };
 
         return ttt;
@@ -114,6 +123,18 @@ impl Tictactoe {
         else { return String::from(""); }
     }
 
+    fn getCellHTML(&self, y: usize, x: usize) -> String {
+        let mut cellHTML: String = String::new();
+
+        cellHTML += "<input ";
+        cellHTML += &self.id_list[y][x];
+        cellHTML += "type='button' class='cell' value='";
+        cellHTML += &Tictactoe::getStr(self.board[y][x]);
+        cellHTML += "' onClick='onCellClick(this.id)'>";
+
+        return cellHTML;
+    }
+
     pub fn show(&self) {
         for y in 0..self.N * 2 {
             for x in 0..self.N * 2 {
@@ -128,17 +149,13 @@ impl Tictactoe {
         let mut boardHTML: String = String::new();
 
         let spanBegin: &str = "<span class='line'>";
-        let cellBegin: &str = "<input type='button' class='cell' value='";
-        let cellEnd: &str = "'>";
         let spanEnd: &str = "</span>";
 
         for y in 0..self.N * 2 {
             boardHTML += spanBegin;
 
             for x in 0..self.N * 2 {
-                boardHTML += cellBegin;
-                boardHTML += &Tictactoe::getStr(self.board[y][x]);
-                boardHTML += cellEnd;
+                boardHTML += &self.getCellHTML(y, x);
             }
             
             boardHTML += spanEnd;
