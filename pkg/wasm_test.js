@@ -18,15 +18,6 @@ function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 
-let cachedInt32Memory0 = null;
-
-function getInt32Memory0() {
-    if (cachedInt32Memory0 === null || cachedInt32Memory0.byteLength === 0) {
-        cachedInt32Memory0 = new Int32Array(wasm.memory.buffer);
-    }
-    return cachedInt32Memory0;
-}
-
 let WASM_VECTOR_LEN = 0;
 
 const cachedTextEncoder = (typeof TextEncoder !== 'undefined' ? new TextEncoder('utf-8') : { encode: () => { throw Error('TextEncoder not available') } } );
@@ -80,6 +71,15 @@ function passStringToWasm0(arg, malloc, realloc) {
 
     WASM_VECTOR_LEN = offset;
     return ptr;
+}
+
+let cachedInt32Memory0 = null;
+
+function getInt32Memory0() {
+    if (cachedInt32Memory0 === null || cachedInt32Memory0.byteLength === 0) {
+        cachedInt32Memory0 = new Int32Array(wasm.memory.buffer);
+    }
+    return cachedInt32Memory0;
 }
 /**
 * @param {string} name
@@ -174,25 +174,35 @@ export class Tictactoe {
         return Tictactoe.__wrap(ret);
     }
     /**
+    * @returns {Tictactoe}
+    */
+    clone() {
+        const ret = wasm.tictactoe_clone(this.__wbg_ptr);
+        return Tictactoe.__wrap(ret);
+    }
+    /**
     * @param {number} stone
     * @param {number} _y
     * @param {number} _x
+    * @param {string} strategy
     * @returns {string}
     */
-    put(stone, _y, _x) {
-        let deferred1_0;
-        let deferred1_1;
+    put(stone, _y, _x, strategy) {
+        let deferred2_0;
+        let deferred2_1;
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.tictactoe_put(retptr, this.__wbg_ptr, stone, _y, _x);
+            const ptr0 = passStringToWasm0(strategy, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+            const len0 = WASM_VECTOR_LEN;
+            wasm.tictactoe_put(retptr, this.__wbg_ptr, stone, _y, _x, ptr0, len0);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r1 = getInt32Memory0()[retptr / 4 + 1];
-            deferred1_0 = r0;
-            deferred1_1 = r1;
+            deferred2_0 = r0;
+            deferred2_1 = r1;
             return getStringFromWasm0(r0, r1);
         } finally {
             wasm.__wbindgen_add_to_stack_pointer(16);
-            wasm.__wbindgen_free(deferred1_0, deferred1_1);
+            wasm.__wbindgen_free(deferred2_0, deferred2_1);
         }
     }
     /**

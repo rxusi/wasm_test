@@ -84,7 +84,7 @@ const put = function(stone, y, x) {
     let updated_cell_id;
     let uy, ux;
     
-    updated_cell_id = ttt.put(stone, y, x);
+    updated_cell_id = ttt.put(stone, y, x, "manual");
 
     if (updated_cell_id[0] == '!') { 
         console.log(updated_cell_id);
@@ -95,7 +95,7 @@ const put = function(stone, y, x) {
     document.querySelector("#" + updated_cell_id).value = ttt.getCellStr(uy, ux);
 }
 
-const displayWinner = async function() {
+const displayWinner = function() {
     if (winner == 0) {
         winner = ttt.getWinner();
         let winner_text = "";

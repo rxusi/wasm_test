@@ -2,6 +2,7 @@
 
 use wasm_bindgen::prelude::*;
 mod random_generator; use random_generator::Rng;
+mod montecarlo; use montecarlo::montecarlo;
 
 #[wasm_bindgen]
 pub struct Point {
@@ -77,6 +78,21 @@ impl Tictactoe {
         return ttt;
     }
 
+    pub fn clone(&mut self) -> Self {
+        let ttt: Self = Self {
+            N: self.N,
+            win_N: self.win_N,
+            remain_N: self.remain_N,
+            turn: self.turn,
+            winner: self.winner,
+            board: self.board.clone(),
+            id_list: self.id_list.clone(),
+            rng: Rng::new(self.rng.rand_usize(1, 99991) as u128),
+        };
+
+        return ttt;
+    }
+
     fn getNextPos(&self, y: usize, x: usize, dx: isize, dy: isize, i: usize) -> Option<(usize, usize)> {
         let ret: Option<(usize, usize)>;
 
@@ -105,7 +121,7 @@ impl Tictactoe {
         return (y, x);
     }
 
-    pub fn put(&mut self, stone: isize, _y: usize, _x: usize) -> String {
+    pub fn put(&mut self, stone: isize, _y: usize, _x: usize, strategy: &str) -> String {
         if self.winner != 0 || self.remain_N == 0 { return String::from("!!! The game is over !!!"); }
 
         let (y, x): (usize, usize);
@@ -113,7 +129,11 @@ impl Tictactoe {
         if stone != self.turn { return String::from("!!! It's not your turn !!!"); }
 
         if _x < self.N && _y < self.N { (y, x) = (_y, _x); }
-        else { (y, x) = self.getRandomPos(); }
+        else { 
+            if strategy == "random" { (y, x) = self.getRandomPos(); }
+            else if strategy == "montecarlo" { (y, x) = montecarlo(self, stone, 1000); }
+            else { (y, x) = self.getRandomPos(); }
+        }
 
         if self.board[y][x] != 0 { return String::from("!!! There already is a stone !!!"); }
 
@@ -206,7 +226,7 @@ impl Tictactoe {
     }
 
     pub fn getWinner(&self) -> isize {
-        if self.winner != 0 { println!("{} wins!", Self::cell2Str(self.winner)); }
+        //if self.winner != 0 { println!("{} wins!", Self::cell2Str(self.winner)); }
         return self.winner;
     }
 }
@@ -215,34 +235,46 @@ impl Tictactoe {
 mod tests {
     use crate::Tictactoe;
     use crate::Rng;
+    use crate::montecarlo;
 
     #[test]
     fn ttt_show() {
         let mut ttt: Tictactoe = Tictactoe::new(4, 4, 1);
         ttt.show();
 
-        ttt.put(1, 0, 0);
+        ttt.put(1, 0, 0, "random");
         ttt.show();
-        ttt.put(2, 5, 5);
+        ttt.put(2, 5, 5, "random");
         ttt.show();
-        ttt.put(1, 0, 2);
+        ttt.put(1, 0, 2, "random");
         ttt.show();
-        ttt.put(2, 5, 5);
+        ttt.put(2, 5, 5, "random");
         ttt.show();
-        ttt.put(1, 0, 3);
+        ttt.put(1, 0, 3, "random");
         ttt.show();
-        ttt.put(2, 5, 5);
+        ttt.put(2, 5, 5, "random");
         ttt.show();
-        ttt.put(1, 0, 1);
+        ttt.put(1, 0, 1, "random");
         ttt.show();
-        ttt.put(2, 5, 5);
+        ttt.put(2, 5, 5, "random");
         ttt.show();
-        ttt.put(1, 5, 5);
+        ttt.put(1, 5, 5, "random");
         ttt.show();
 
         println!("{}", ttt.getWinner());
 
         dbg!(ttt.getBoardHTML());
+    }
+
+    #[test]
+    fn motecarlo() {
+        let mut ttt: Tictactoe = Tictactoe::new(4, 4, 1);
+        ttt.put(1, 0, 0, "random");
+        ttt.show();
+        ttt.put(2, 5, 5, "random");
+        ttt.show();
+
+        montecarlo(&mut ttt, 1, 1000);
     }
 
     #[test]

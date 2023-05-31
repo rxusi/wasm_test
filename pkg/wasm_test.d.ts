@@ -37,12 +37,17 @@ export class Tictactoe {
 */
   constructor(_N: number, _win_N: number, first: number);
 /**
+* @returns {Tictactoe}
+*/
+  clone(): Tictactoe;
+/**
 * @param {number} stone
 * @param {number} _y
 * @param {number} _x
+* @param {string} strategy
 * @returns {string}
 */
-  put(stone: number, _y: number, _x: number): string;
+  put(stone: number, _y: number, _x: number, strategy: string): string;
 /**
 * @param {number} y
 * @param {number} x
@@ -78,7 +83,8 @@ export interface InitOutput {
   readonly point_set: (a: number, b: number, c: number) => void;
   readonly __wbg_tictactoe_free: (a: number) => void;
   readonly tictactoe_new: (a: number, b: number, c: number) => number;
-  readonly tictactoe_put: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly tictactoe_clone: (a: number) => number;
+  readonly tictactoe_put: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
   readonly tictactoe_getCellStr: (a: number, b: number, c: number, d: number) => void;
   readonly tictactoe_cell2Str: (a: number, b: number) => void;
   readonly tictactoe_show: (a: number) => void;
@@ -86,9 +92,9 @@ export interface InitOutput {
   readonly tictactoe_getWinner: (a: number) => number;
   readonly greet: (a: number, b: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
-  readonly __wbindgen_free: (a: number, b: number) => void;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
+  readonly __wbindgen_free: (a: number, b: number) => void;
 }
 
 export type SyncInitInput = BufferSource | WebAssembly.Module;
