@@ -51,6 +51,8 @@ const createBoard = function() {
 
     board.innerHTML = boardHTML;
 
+    document.querySelector("#winner").innerHTML = "";
+
     // Com tries to put
     put(COM, cell_n, cell_n);
 }
