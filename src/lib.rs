@@ -8,6 +8,7 @@ pub struct Point {
     y: isize,
 }
 
+#[wasm_bindgen]
 impl Point {
     pub fn show(&self) {
         println!("({}, {})", self.x, self.y);

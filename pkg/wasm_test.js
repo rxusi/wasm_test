@@ -96,6 +96,25 @@ export class Point {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_point_free(ptr);
     }
+    /**
+    */
+    show() {
+        wasm.point_show(this.__wbg_ptr);
+    }
+    /**
+    * @returns {number}
+    */
+    sum() {
+        const ret = wasm.point_sum(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+    * @param {number} x
+    * @param {number} y
+    */
+    set(x, y) {
+        wasm.point_set(this.__wbg_ptr, x, y);
+    }
 }
 /**
 */
