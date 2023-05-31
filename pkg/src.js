@@ -96,14 +96,16 @@ const displayWinner = function() {
     let winner = ttt.getWinner();
     let winner_text = "";
 
-    if (winner == PLAYER) { winner_text = "Player"; }
-    else if (winner == COM ) { winner_text = "Com"; }
+    if (winner != 0) {
+        if (winner == PLAYER) { winner_text = "Player"; }
+        else if (winner == COM ) { winner_text = "Com"; }
 
-    winner_text += Tictactoe.cell2Str(winner) + " wins!";
+        winner_text += Tictactoe.cell2Str(winner) + " wins!";
 
-    alert(winner_text);
+        alert(winner_text);
 
-    document.querySelector("#winner").innerHTML = winner_text;
+        document.querySelector("#winner").innerHTML = winner_text;
+    }
 }
 
 const idParse = function(id_string) {
