@@ -102,9 +102,10 @@ const displayWinner = function() {
 
         winner_text += Tictactoe.cell2Str(winner) + " wins!";
 
-        alert(winner_text);
-
-        document.querySelector("#winner").innerHTML = winner_text;
+        if (winner != 0) {
+            alert(winner_text);
+            document.querySelector("#winner").innerHTML = winner_text;
+        }
     }
 }
 
