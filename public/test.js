@@ -1,4 +1,4 @@
-const createBoard = function() {
+/*const createBoard = function() {
     let cell_n = document.querySelector("#cell_n").value; 
     let board = document.querySelector("#board");
     console.log(cell_n);
@@ -16,4 +16,4 @@ const createBoard = function() {
     }
     
     board.innerHTML = boardHTML;
-}
+}*/
